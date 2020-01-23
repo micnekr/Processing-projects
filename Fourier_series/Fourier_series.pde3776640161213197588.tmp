@@ -1,0 +1,42 @@
+Circle circle;
+ArrayList<Point> wave;
+int max = 1000;
+float scale = 400;
+
+void setup() {
+  size(600, 600);
+
+  wave = new ArrayList<Point>();
+
+  circle = new Circle(radians(1), scale/PI);
+  float radiusChange = 3;
+  for (int i = 0; i<100; i++) {
+    circle.grow(radians(i+2+radiusChange), scale/(PI*radiusChange));
+    radiusChange+=2;
+  }
+  circle.setPos(100, 300);
+}
+
+void draw() {
+  background(255);
+  circle.update();
+  circle.draw();
+  Circle last = circle.getLast();
+  wave.add(new Point(new PVector(250, last.py)));
+
+  noFill();
+
+  beginShape();
+  for (int i = 0; i<wave.size(); i++) {
+    Point point = wave.get(i);
+    point.slide(1);
+    vertex(point.pos.x, point.pos.y);
+  }
+  endShape();
+
+  line(0, last.py, width, last.py);
+
+  if (wave.size()>max) {
+    wave.remove(0);
+  }
+}

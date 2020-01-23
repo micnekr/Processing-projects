@@ -1,0 +1,37 @@
+float gravityConst = 1000;
+
+Obj o1, o2;
+ArrayList<Obj> objects;
+
+void setup() {
+  size(600, 600);
+  //fullScreen();
+  objects = new ArrayList<Obj>();
+  o1 = new Obj(1, random(width), random(height));
+  o2 = new Obj(1, random(width), random(height));
+}
+
+void draw() {
+  background(255);
+  int size = objects.size();
+  for (int i = 0; i<size; i++) {
+    Obj first  = objects.get(i);
+    for (int j = i+1; j<size; j++) {
+      Obj second  = objects.get(j);
+      if (first.pos.dist(second.pos)>(first.w+second.w)/2) {
+        first.attract(second);
+      }
+    }
+    first.physics();
+    first.draw();
+    println(objects.size());
+  }
+}
+
+void mousePressed() {
+  if (mouseButton==LEFT) {  
+    objects.add(new Obj(random(2), mouseX, mouseY));
+  } else {
+    objects.add(new Obj(-1, mouseX, mouseY));
+  }
+}

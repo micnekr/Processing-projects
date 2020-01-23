@@ -1,0 +1,30 @@
+class Physics {
+  PVector vel;
+  PVector acc;
+  PVector pos;
+  boolean kinematic = false;
+
+  Physics(float x, float y) {
+    vel = new PVector(0, 0);
+    acc = new PVector(0, 0);
+    pos = new PVector(x, y);
+  }
+
+  void physics() {
+    if (!kinematic) {
+      vel.add(acc);
+      acc = new PVector(0, 0);
+      pos.add(vel);
+      constrain(pos.x, 0, width);
+      constrain(pos.y, 0, height);
+    }
+  }
+
+  void force(float x, float y) {
+    acc.add(new PVector(x, y));
+  }
+
+  void force(PVector f) {
+    acc.add(f);
+  }
+}

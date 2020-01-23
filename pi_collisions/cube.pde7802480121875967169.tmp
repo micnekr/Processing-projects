@@ -1,0 +1,31 @@
+class Object {
+  float v;
+  float m;
+  float w;
+  float x, y;
+
+  Object(float x_, float y_, float m_, float w_) {
+    x = x_;
+    y = y_;
+    m = m_;
+    w = w_;
+  }
+
+  void update() {
+    x += v;
+  }
+
+  void collide(Object other) {
+    if (this.x + this.w >= other.x || other.x + other.w >= this.x) {
+      println("collides");
+    } else {
+      println("No");
+    }
+  }
+
+  void draw() {
+    pushStyle();
+    rect(x, y, w, w);
+    popStyle();
+  }
+}
