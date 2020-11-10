@@ -28,7 +28,7 @@ class Bullet extends Body {
     // let d = t * t
     // 4Sh*Sh + 4*Sv*Sv - 4*d*(Shah + Svav) + (ah*ah + av*av)*d*d - 4*b*maxForce*maxForce = 0
     float a = ah * ah + av * av;
-    float b = - 4 * maxForce - 4*(sh * ah + sv * av);
+    float b = - 4 * maxForce * maxForce - 4*(sh * ah + sv * av);
     float c = 4*sh*sh + 4*sv*sv;
 
     float D = b * b - 4 * a * c;
@@ -57,38 +57,32 @@ class Bullet extends Body {
         
     uh = sh/t - ah*t/2;
     uv = sv/t - av*t/2;
-    
+        
     return new PVector((uh - vel.x)*m, (uv - vel.y)*m);
   }
   
-  PVector findForce (Body target, PVector force, float maxForce){
-    float sh = target.pos.x-pos.x;
-    float sv = target.pos.y - pos.y;
+  //PVector findForce (Body target, PVector force, float maxForce, float t){
+  //  float sh = target.pos.x-pos.x;
+  //  float sv = target.pos.y - pos.y;
 
-    float uh = 0;
-    float uv = 0;
+  //  float uh = 0;
+  //  float uv = 0;
 
-    float ah = force.x / m;
-    float av = force.y / m;
+  //  float ah = force.x / m;
+  //  float av = force.y / m;
     
-    float ath = target.acc.x;
-    float atv = target.acc.y;
+  //  float ath = target.acc.x;
+  //  float atv = target.acc.y;
     
-    float uth = target.vel.x;
-    float utv = target.vel.y;
+  //  float uth = target.vel.x;
+  //  float utv = target.vel.y;
     
-    //maxForce2 = uh2 + uv2
-    //S = ut + at2/2
-    //u = S/t - at/2
-    //S = u * 
-    //4maxForce2 = 4Sh*Sh/(t*t) + 4Sv*Sv/(t*t) - 4(Shah + Svav) + ah*ah*t*t + av*av*t*t
-    // 4t*t*maxForce2 = 4Sh*Sh + 4*Sv*Sv - 4*t*t(Shah + Svav) + (ah*ah + av*av)*t*t*t*t 
-    // 4Sh*Sh + 4*Sv*Sv - 4*t*t(Shah + Svav) + (ah*ah + av*av)*t*t*t*t - 4t*t*maxForce2 = 0
-    // let d = t * t
-    // 4Sh*Sh + 4*Sv*Sv - 4*d*(Shah + Svav) + (ah*ah + av*av)*d*d - 4*b*maxForce*maxForce = 0
+  //  //maxForce2 = uh2 + uv2
+  //  //S = (v+u)*t/2
+  //  //
     
-    return new PVector((uh - vel.x)*m, (uv - vel.y)*m);
-  }
+  //  return new PVector((uh - vel.x)*m, (uv - vel.y)*m);
+  //}
 
   void draw() {
     pushStyle();
